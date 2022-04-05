@@ -1,6 +1,6 @@
 import React from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {View, Text} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import currencyFormatter from 'currency-formatter';
 
 import {Cast} from '../interfaces/CastInterface';
@@ -17,35 +17,53 @@ export const MovieDetails = ({movieInfo, cast}: Props) => {
   return (
     <>
       <View style={globalStyles.marginContainer}>
-        <View style={{flexDirection: 'row'}}>
+        <View style={styles.row}>
           <Icon name="star-outline" size={14} color="grey" />
           <Text> {movieInfo.vote_average}</Text>
           <Text> - {movieInfo.genres.map(g => g.name).join(', ')}</Text>
         </View>
 
-        <Text style={{fontSize: 16, marginTop: 10}}>{movieInfo.overview}</Text>
+        <Text style={styles.overview}>{movieInfo.overview}</Text>
 
-        <Text style={{fontSize: 16, marginTop: 10, fontWeight: 'bold'}}>
-          Presupuesto
-        </Text>
-        <Text style={{fontSize: 16, marginTop: 5}}>
+        <Text style={styles.subtitle}>Presupuesto</Text>
+        <Text style={styles.currency}>
           {currencyFormatter.format(movieInfo.budget, {code: 'USD'})}
         </Text>
       </View>
 
-      <View style={{marginBottom: 10}}>
-        <Text
-          style={{
-            fontSize: 16,
-            marginTop: 10,
-            fontWeight: 'bold',
-            marginBottom: 5,
-            marginLeft: 20,
-          }}>
-          Reparto
-        </Text>
+      <View style={styles.castSection}>
+        <Text style={styles.castSubtitle}>Reparto</Text>
         <CastHorizontalSlider cast={cast} />
       </View>
     </>
   );
 };
+
+const styles = StyleSheet.create({
+  row: {
+    flexDirection: 'row',
+  },
+  overview: {
+    fontSize: 16,
+    marginTop: 10,
+  },
+  subtitle: {
+    fontSize: 16,
+    marginTop: 10,
+    fontWeight: 'bold',
+  },
+  currency: {
+    fontSize: 16,
+    marginTop: 5,
+  },
+  castSection: {
+    marginBottom: 10,
+  },
+  castSubtitle: {
+    fontSize: 16,
+    marginTop: 10,
+    fontWeight: 'bold',
+    marginBottom: 5,
+    marginLeft: 20,
+  },
+});

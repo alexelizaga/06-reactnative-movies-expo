@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {useWindowDimensions, View} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Carousel from 'react-native-snap-carousel';
@@ -25,6 +25,12 @@ const MoviesCarousel = ({movies}: Props) => {
 
     setMainColors({primary, secondary});
   };
+
+  useEffect(() => {
+    if (movies.length > 0) {
+      getPosterColors(0);
+    }
+  }, [movies]);
 
   return (
     <View style={{marginTop: top + 5}}>

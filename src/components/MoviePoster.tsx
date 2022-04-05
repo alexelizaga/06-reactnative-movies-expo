@@ -1,8 +1,9 @@
 import React from 'react';
 import {View, Image, StyleSheet} from 'react-native';
-import {Movie} from '../interfaces/MovieInterface';
 import {useNavigation} from '@react-navigation/native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+
+import {Movie} from '../interfaces/MovieInterface';
 
 interface Props {
   movie: Movie;
@@ -23,13 +24,7 @@ export const MoviePoster = ({
     <TouchableOpacity
       onPress={() => navigation.navigate('DetailScreen', movie)}
       activeOpacity={0.8}
-      style={{
-        width,
-        height,
-        marginHorizontal,
-        paddingBottom: 20,
-        paddingHorizontal: 5,
-      }}>
+      style={[styles.btn, {width, height, marginHorizontal}]}>
       <View style={styles.imageContainer}>
         <Image source={{uri}} style={styles.image} />
       </View>
@@ -53,5 +48,9 @@ const styles = StyleSheet.create({
   image: {
     flex: 1,
     borderRadius: 18,
+  },
+  btn: {
+    paddingBottom: 20,
+    paddingHorizontal: 5,
   },
 });
